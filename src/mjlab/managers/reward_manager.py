@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import inspect
 from typing import TYPE_CHECKING
 
 import torch
@@ -109,5 +110,5 @@ class RewardManager(ManagerBase):
       self._resolve_common_term_cfg(term_name, term_cfg)
       self._term_names.append(term_name)
       self._term_cfgs.append(term_cfg)
-      if hasattr(term_cfg.func, "reset") and callable(term_cfg.func.reset):
+      if inspect.isclass(term_cfg.func):
         self._class_term_cfgs.append(term_cfg)

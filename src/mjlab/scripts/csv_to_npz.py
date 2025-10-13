@@ -8,7 +8,7 @@ from tqdm import tqdm
 from mjlab.entity import Entity
 from mjlab.scene import Scene
 from mjlab.sim.sim import Simulation, SimulationCfg
-from mjlab.tasks.tracking.config.g1.flat_env_cfg import G1FlatEnvCfg
+from mjlab.tasks.tracking.config.motion1.flat_env_cfg import Motion1FlatEnvCfg
 from mjlab.third_party.isaaclab.isaaclab.utils.math import (
   axis_angle_from_quat,
   quat_apply_inverse,
@@ -310,17 +310,17 @@ def run_sim(
 
         COLLECTION = output_name
         run = wandb.init(
-          project="csv_to_npz", name=COLLECTION, entity="gcbc_researchers"
+          project="csv_to_npz", name=COLLECTION, entity="shuangpeng00"
         )
         print(f"[INFO]: Logging motion to wandb: {COLLECTION}")
         REGISTRY = "motions"
         logged_artifact = run.log_artifact(
           artifact_or_path="/tmp/motion.npz", name=COLLECTION, type=REGISTRY
         )
-        run.link_artifact(
-          artifact=logged_artifact,
-          target_path=f"wandb-registry-{REGISTRY}/{COLLECTION}",
-        )
+        #run.link_artifact(
+        #  artifact=logged_artifact,
+        #  target_path=f"wandb-registry-{REGISTRY}/{COLLECTION}",
+        #)
         print(f"[INFO]: Motion saved to wandb registry: {REGISTRY}/{COLLECTION}")
         wandb.finish()
 
@@ -358,7 +358,7 @@ def main(
   sim_cfg.render.height = 480
   sim_cfg.render.width = 640
 
-  scene = Scene(G1FlatEnvCfg().scene, device=device)
+  scene = Scene(Motion1FlatEnvCfg().scene, device=device)
   model = scene.compile()
 
   sim = Simulation(num_envs=1, cfg=sim_cfg, model=model, device=device)
@@ -370,6 +370,37 @@ def main(
   run_sim(
     sim=sim,
     scene=scene,
+    # joint_names=[
+    #   "left_hip_pitch_joint",
+    #   "left_hip_roll_joint",
+    #   "left_hip_yaw_joint",
+    #   "left_knee_joint",
+    #   "left_ankle_pitch_joint",
+    #   "left_ankle_roll_joint",
+    #   "right_hip_pitch_joint",
+    #   "right_hip_roll_joint",
+    #   "right_hip_yaw_joint",
+    #   "right_knee_joint",
+    #   "right_ankle_pitch_joint",
+    #   "right_ankle_roll_joint",
+    #   "waist_yaw_joint",
+    #   "waist_roll_joint",
+    #   "waist_pitch_joint",
+    #   "left_shoulder_pitch_joint",
+    #   "left_shoulder_roll_joint",
+    #   "left_shoulder_yaw_joint",
+    #   "left_elbow_joint",
+    #   "left_wrist_roll_joint",
+    #   "left_wrist_pitch_joint",
+    #   "left_wrist_yaw_joint",
+    #   "right_shoulder_pitch_joint",
+    #   "right_shoulder_roll_joint",
+    #   "right_shoulder_yaw_joint",
+    #   "right_elbow_joint",
+    #   "right_wrist_roll_joint",
+    #   "right_wrist_pitch_joint",
+    #   "right_wrist_yaw_joint",
+    # ],
     joint_names=[
       "left_hip_pitch_joint",
       "left_hip_roll_joint",
@@ -383,23 +414,23 @@ def main(
       "right_knee_joint",
       "right_ankle_pitch_joint",
       "right_ankle_roll_joint",
-      "waist_yaw_joint",
-      "waist_roll_joint",
-      "waist_pitch_joint",
+      "waist_joint",
+      #"waist_roll_joint",
+      #"waist_pitch_joint",
       "left_shoulder_pitch_joint",
       "left_shoulder_roll_joint",
       "left_shoulder_yaw_joint",
       "left_elbow_joint",
-      "left_wrist_roll_joint",
-      "left_wrist_pitch_joint",
-      "left_wrist_yaw_joint",
+      #"left_wrist_roll_joint",
+      #"left_wrist_pitch_joint",
+      "left_wrist_joint",
       "right_shoulder_pitch_joint",
       "right_shoulder_roll_joint",
       "right_shoulder_yaw_joint",
       "right_elbow_joint",
-      "right_wrist_roll_joint",
-      "right_wrist_pitch_joint",
-      "right_wrist_yaw_joint",
+      #"right_wrist_roll_joint",
+      #"right_wrist_pitch_joint",
+      "right_wrist_joint",
     ],
     input_fps=input_fps,
     input_file=input_file,
