@@ -12,8 +12,8 @@
       </default>
       <default class="collision">
         <geom group="3" rgba=".2 .6 .2 .3" type="capsule" contype="1" conaffinity="1"/>
-        <default class="foot_box">
-          <geom type="box" size="0.078 0.012 0.001" pos="0.008 0.0 -0.039"/>
+        <default class="foot_sphere">
+          <geom type="sphere"/>
         </default>
       </default>
       <site group="5" rgba="1 0 0 1"/>
@@ -99,7 +99,10 @@
                                 <geom class="visual" mesh="foot" material="black" />
 
                                 <site name="left_foot_site" size="0.01" pos="0.0 0.0 0.0" rgba="0.2 0.2 0.2 1"/>
-                                <geom name="left_foot1_collision" class="foot_box"/>
+                                <geom name="left_foot1_collision" class="foot_sphere" size = "0.005" pos="0.079 0.006 -0.037"/>
+                                <geom name="left_foot2_collision" class="foot_sphere" size = "0.005" pos="-0.061 0.006 -0.037"/>
+                                <geom name="left_foot3_collision" class="foot_sphere" size = "0.005" pos="0.079 -0.006 -0.037"/>
+                                <geom name="left_foot4_collision" class="foot_sphere" size = "0.005" pos="-0.061 -0.006 -0.037"/>
                             </body>
                         </body>
                     </body>
@@ -143,7 +146,10 @@
                                 <geom class="visual" mesh="foot" material="black" />
 
                                 <site name="right_foot_site" size="0.01" pos="0.0 0.0 0.0" rgba="0.2 0.2 0.2 1"/>
-                                <geom name="right_foot1_collision" class="foot_box"/>
+                                <geom name="right_foot1_collision" class="foot_sphere" size = "0.005" pos="0.079 0.006 -0.037"/>
+                                <geom name="right_foot2_collision" class="foot_sphere" size = "0.005" pos="-0.061 0.006 -0.037"/>
+                                <geom name="right_foot3_collision" class="foot_sphere" size = "0.005" pos="0.079 -0.006 -0.037"/>
+                                <geom name="right_foot4_collision" class="foot_sphere" size = "0.005" pos="-0.061 -0.006 -0.037"/>
                             </body>
                         </body>
                     </body>
