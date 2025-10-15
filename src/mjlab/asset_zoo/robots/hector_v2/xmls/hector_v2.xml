@@ -183,7 +183,7 @@
             </body>
 
 
-            <body name="r_shoulder1" pos="0 -0.053 0.124">
+            <body name="right_shoulder_yaw_link" pos="0 -0.053 0.124">
 
                 <joint name="r_shoulder_yaw" pos="0 0 0" axis="0 0 1" class="arm_yaw" />
                 <inertial pos="0.00071 -0.02838 0.04835" quat="0.707107 0 0 0.707107" mass="0.4356"
