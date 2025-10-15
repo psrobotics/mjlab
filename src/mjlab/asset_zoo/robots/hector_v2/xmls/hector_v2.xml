@@ -1,0 +1,228 @@
+<mujoco model="hector feet only">
+  <compiler angle="radian" meshdir="assets" autolimits="true"/>
+
+  <option timestep='0.002' iterations="2" ls_iterations="5">
+    <flag eulerdamp="disable" />
+  </option>
+
+  <default>
+    <default class="motion1">
+      <default class="visual">
+        <geom group="2" type="mesh" density="0" material="silver" contype="0" conaffinity="0"/>
+      </default>
+      <default class="collision">
+        <geom group="3" rgba=".2 .6 .2 .3" type="capsule" contype="1" conaffinity="1"/>
+        <default class="foot_sphere">
+          <geom type="sphere"/>
+        </default>
+      </default>
+      <site group="5" rgba="1 0 0 1"/>
+    </default>
+  </default>
+
+  <asset>
+    <material name="silver" rgba="0.7 0.7 0.7 1"/>
+    <material name="black" rgba="0.2 0.2 0.2 1"/>
+
+    <mesh name="torso" file="torso.stl" />
+    <mesh name="l_hip1" file="l_hip1.stl" />
+    <mesh name="l_hip2" file="l_hip2.stl" />
+    <mesh name="l_thigh" file="l_thigh.stl" />
+    <mesh name="calf" file="calf.stl" />
+    <mesh name="foot" file="foot_original.stl" />
+    <mesh name="r_hip1" file="r_hip1.stl" />
+    <mesh name="r_hip2" file="r_hip2.stl" />
+    <mesh name="r_thigh" file="r_thigh.stl" />
+    <mesh name="r_shoulder1" file="r_shoulder1.stl" />
+    <mesh name="r_shoulder2" file="r_shoulder2.stl" />
+    <mesh name="r_upper_arm" file="r_upper_arm.stl" />
+    <mesh name="lower_arm" file="lower_arm.stl" />
+    <mesh name="l_shoulder1" file="l_shoulder1.stl" />
+    <mesh name="l_shoulder2" file="l_shoulder2.stl" />
+    <mesh name="l_upper_arm" file="l_upper_arm.stl" />
+  </asset>
+
+
+    <worldbody>
+        <body name="torso_link" pos="0 0 0.6">
+
+            <freejoint name="floating_base_joint" />
+            <site name="imu_in_torso" size="0.01" pos="0.0 0.0 0.0" rgba="0.2 0.2 0.2 1"/>
+
+            <camera name="front" pos="1.210 -0.435 0.32" xyaxes="0.342 0.940 0.000 -0.321 0.117 0.940" mode="trackcom" />
+            <camera name="track" pos="0.805 -1.105 0.2" xyaxes="0.814 0.580 0.000 -0.140 0.196 0.971" mode="trackcom" />
+
+            <inertial pos="0.0 0.0 0.0" mass="4.98"
+                fullinertia="0.048637  0.04267 0.023157 0.000154 0.000534 0.0" />
+            <geom class="visual" mesh="torso" material="black" />
+
+            <body name="left_hip_yaw_link" pos="0 0.047 -0.1265">
+                <joint name="left_hip_yaw_joint" pos="0 0 0" axis="0 0 1" class="h_yaw" />
+
+                <inertial pos="0.05147 0.01453 -0.06160" mass="0.77833"
+                    diaginertia="0.00122 0.00111 0.00081" />
+                <geom class="visual" mesh="l_hip1" material="black" />
+
+                <body name="left_hip_roll_link" pos="0.0465 0.015 -0.0705">
+
+                    <joint name="left_hip_roll_joint" pos="0 0 0" axis="1 0 0" class="h_roll" />
+
+                    <inertial pos="-0.05690 -0.00009 0.00023" mass="0.67724"
+                        diaginertia="0.00053 0.00087 0.00061" />
+                    <geom class="visual" mesh="l_hip2" material="black" />
+
+                    <body name="left_hip_pitch_link" pos="-0.06 0.018 0">
+
+                        <joint name="left_hip_pitch_joint" pos="0 0 0" axis="0 1 0" class="h_pitch" />
+
+                        <inertial pos="0 0.0495479 -0.0538811"
+                            quat="0.706819 -0.0201552 0.0201552 0.706819" mass="1.558"
+                            diaginertia="0.00641282 0.00621905 0.00163248" />
+                        <geom class="visual" mesh="l_thigh" material="black" />
+
+                        <body name="left_knee_link" pos="0 0.0142 -0.22">
+
+                            <joint name="left_knee_joint" pos="0 0 0" axis="0 1 0" class="k_pitch" />
+
+                            <inertial pos="0.00204 0 -0.077" quat="0.707107 0 0 0.707107"
+                                mass="0.146" diaginertia="0.00075 0.00074 2e-05" />
+                            <geom class="visual" mesh="calf" material="black" />
+
+                            <body name="left_ankle_pitch_link" pos="0 0 -0.22">
+
+                                <joint name="left_ankle_pitch_joint" pos="0 0 0" axis="0 1 0" class="ankle" />
+                                <inertial pos="0.00246 0.00003 -0.02248" mass="0.08440"
+                                    diaginertia="0.00001 0.00011 0.00010" />
+                                <geom class="visual" mesh="foot" material="black" />
+
+                                <site name="left_foot_site" size="0.01" pos="0.0 0.0 0.0" rgba="0.2 0.2 0.2 1"/>
+                                <geom name="left_foot1_collision" class="foot_sphere"/>
+                            </body>
+                        </body>
+                    </body>
+                </body>
+            </body>
+
+            <body name="right_hip_yaw_link" pos="0 -0.047 -0.1265">
+
+                <joint name="right_hip_yaw_joint" pos="0 0 0" axis="0 0 1" limited="true" class="h_yaw"/>
+                <inertial pos="0.05147 -0.01453 -0.06160" mass="0.77833"
+                    diaginertia="0.00122 0.00111 0.00081" />
+                <geom class="visual" mesh="r_hip1" material="black" />
+
+                <body name="right_hip_roll_link" pos="0.0465 -0.015 -0.0705">
+
+                    <joint name="right_hip_roll_joint" pos="0 0 0" axis="1 0 0" class="h_roll"/>
+                    <inertial pos="-0.05690 0.00009 0.00023" mass="0.67724"
+                        diaginertia="0.00053 0.00087 0.00061" />
+                    <geom class="visual" mesh="r_hip2" material="black" />
+
+                    <body name="right_hip_pitch_link" pos="-0.06 -0.018 0">
+
+                        <joint name="right_hip_pitch_joint" pos="0 0 0" axis="0 1 0" class="h_pitch" />
+                        <inertial pos="0 -0.0495479 -0.0534307"
+                            quat="0.706808 0.0205429 -0.0205429 0.706808" mass="1.558"
+                            diaginertia="0.0064221 0.00622769 0.00163184" />
+                        <geom class="visual" mesh="r_thigh" material="black" />
+
+                        <body name="right_knee_link" pos="0 -0.0142 -0.22">
+
+                            <joint name="right_knee_joint" pos="0 0 0" axis="0 1 0" class="k_pitch" />
+                            <inertial pos="0.00204 0 -0.077" quat="0.707107 0 0 0.707107"
+                                mass="0.146" diaginertia="0.00075 0.00074 2e-05" />
+                            <geom class="visual" mesh="calf" material="black" />
+
+                            <body name="right_ankle_pitch_link" pos="0 0 -0.22">
+                                <joint name="right_ankle_pitch_joint" pos="0 0 0" axis="0 1 0" class="ankle" />
+                                <inertial pos="0.00246 -0.00003 -0.02248" mass="0.08440"
+                                    diaginertia="0.00001 0.00011 0.00010" />
+                                <geom class="visual" mesh="foot" material="black" />
+
+                                <site name="right_foot_site" size="0.01" pos="0.0 0.0 0.0" rgba="0.2 0.2 0.2 1"/>
+                                <geom name="right_foot1_collision" class="foot_sphere"/>
+                            </body>
+                        </body>
+                    </body>
+                </body>
+            </body>
+
+
+            <body name="left_shoulder_yaw_link" pos="0 0.053 0.124">
+
+                <joint name="left_shoulder_yaw_joint" pos="0 0 0" axis="0 0 1" class="arm_yaw" />
+                <inertial pos="0.00071 0.02838 0.04835" quat="0.707107 0 0 0.707107" mass="0.4356"
+                    diaginertia="0.00043 0.00035 0.00027" />
+                <geom class="visual" mesh="l_shoulder1" material="black" />
+
+                <body name="left_shoulder_pitch_link" pos="0 0.049 0.053">
+
+                    <joint name="left_shoulder_pitch_joint" pos="0 0 0" axis="0 1 0" class="arm_pitch" />
+                    <inertial pos="-0.0294 0.04541 0.00089"
+                        quat="0.705607 0.705607 0.0460358 0.0460358" mass="0.432"
+                        diaginertia="0.000422621 0.00033 0.000267379" />
+                    <geom class="visual" mesh="l_shoulder2" material="black" />
+
+                    <body name="left_shoulder_roll_link" pos="-0.011 0.0457 0">
+
+                        <joint name="left_shoulder_roll_joint" pos="0 0 0" axis="-1 0 0" class="arm_roll" />
+                        <inertial pos="0.04492 0.01006 -0.03218"
+                            quat="0.67582 -0.0441467 0.0483102 0.734156" mass="0.66484"
+                            diaginertia="0.00329956 0.00317918 0.000441259" />
+                        <geom class="visual" mesh="l_upper_arm" material="black" />
+
+                        <body name="left_elbow_link" pos="0.041 -0.007 -0.2">
+                            <joint name="left_elbow_joint" pos="0 0 0" axis="0 1 0" class="arm_elbow" />
+                            <inertial pos="0 8e-05 -0.11722" quat="0.707107 0 0 0.707107"
+                                mass="0.1578" diaginertia="0.0013 0.00129 2e-05" />
+                            <geom class="visual" mesh="lower_arm" material="black" />
+
+                            <site name="l_hand" pos="0 0 -0.22" quat="0 1 0 0" />
+                        </body>
+                    </body>
+                </body>
+            </body>
+
+
+            <body name="r_shoulder1" pos="0 -0.053 0.124">
+
+                <joint name="r_shoulder_yaw" pos="0 0 0" axis="0 0 1" class="arm_yaw" />
+                <inertial pos="0.00071 -0.02838 0.04835" quat="0.707107 0 0 0.707107" mass="0.4356"
+                    diaginertia="0.00043 0.00035 0.00027" />
+
+                <geom class="visual" mesh="r_shoulder1" material="black" />
+
+                <body name="r_shoulder2" pos="0 -0.049 0.053">
+
+                    <joint name="r_shoulder_pitch" pos="0 0 0" axis="0 1 0" class="arm_pitch" />
+                    <inertial pos="-0.0294 -0.04541 0.00089"
+                        quat="0.705607 0.705607 -0.0460358 -0.0460358" mass="0.432"
+                        diaginertia="0.000422621 0.00033 0.000267379" />
+                    <geom class="visual" mesh="r_shoulder2" material="black" />
+
+                    <body name="r_upper_arm" pos="-0.011 -0.0457 0">
+
+                        <joint name="r_shoulder_roll" pos="0 0 0" axis="-1 0 0" class="arm_roll" />
+                        <inertial pos="0.04492 -0.01006 -0.03218"
+                            quat="0.734156 0.0483102 -0.0441467 0.67582" mass="0.66484"
+                            diaginertia="0.00329956 0.00317918 0.000441259" />
+                        <geom class="visual" mesh="r_upper_arm" material="black" />
+
+                        <body name="r_lower_arm" pos="0.041 0.007 -0.2">
+                            <inertial pos="0 8e-05 -0.11722" quat="0.707107 0 0 0.707107"
+                                mass="0.1578" diaginertia="0.0013 0.00129 2e-05" />
+                            <joint name="r_elbow" pos="0 0 0" axis="0 1 0" class="arm_elbow" />
+                            <geom class="visual" mesh="lower_arm" material="black" />
+
+                            <site name="r_hand" pos="0 0 -0.22" quat="0 1 0 0" />
+                        </body>
+
+                    </body>
+                </body>
+            </body>
+
+
+        </body>
+    </worldbody>
+
+
+</mujoco>

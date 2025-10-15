@@ -254,6 +254,14 @@ if __name__ == "__main__":
   print(DAMPING_02)
   print(DAMPING_03)
   print(DAMPING_04)
+
+  print("Joint level constants\n")
+  for a in M1_ARTICULATION.actuators:
+    e = a.effort_limit
+    s = a.stiffness
+    d = a.damping
+    names = a.joint_names_expr
+    print("J_name - ", names, " kp - ", s, " kd - ", d, "\n")
   print(M1_ACTION_SCALE)
 
   viewer.launch(robot.spec.compile())
