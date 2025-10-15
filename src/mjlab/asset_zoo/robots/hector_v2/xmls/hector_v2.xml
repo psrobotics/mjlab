@@ -82,6 +82,7 @@
                             diaginertia="0.00641282 0.00621905 0.00163248" />
                         <geom class="visual" mesh="l_thigh" material="black" />
                         <geom name="left_hip_pitch_collision" material="silver" class="collision" type="sphere" size="0.06" pos="0.0 0.032 0.0"/>
+                        <geom name="left_hip_pitch_leg_collision" material="silver" class="collision" type="capsule" size="0.055" fromto="0.0 0.035 0.0 0.0 0.035 -0.2"/>
 
                         <body name="left_knee_link" pos="0 0.0142 -0.22">
 
@@ -90,6 +91,7 @@
                             <inertial pos="0.00204 0 -0.077" quat="0.707107 0 0 0.707107"
                                 mass="0.146" diaginertia="0.00075 0.00074 2e-05" />
                             <geom class="visual" mesh="calf" material="black" />
+                            <geom name="left_knee_leg_collision" material="silver" class="collision" type="capsule" size="0.03" fromto="0.0 0.0 0.0 0.0 0.0 -0.2"/>
 
                             <body name="left_ankle_pitch_link" pos="0 0 -0.22">
 
@@ -131,6 +133,7 @@
                             diaginertia="0.0064221 0.00622769 0.00163184" />
                         <geom class="visual" mesh="r_thigh" material="black" />
                         <geom name="right_hip_pitch_collision" material="silver" class="collision" type="sphere" size="0.06" pos="0.0 -0.032 0.0"/>
+                        <geom name="right_hip_pitch_leg_collision" material="silver" class="collision" type="capsule" size="0.055" fromto="0.0 -0.035 0.0 0.0 -0.035 -0.2"/>
 
                         <body name="right_knee_link" pos="0 -0.0142 -0.22">
 
@@ -138,6 +141,7 @@
                             <inertial pos="0.00204 0 -0.077" quat="0.707107 0 0 0.707107"
                                 mass="0.146" diaginertia="0.00075 0.00074 2e-05" />
                             <geom class="visual" mesh="calf" material="black" />
+                            <geom name="right_knee_leg_collision" material="silver" class="collision" type="capsule" size="0.03" fromto="0.0 0.0 0.0 0.0 0.0 -0.2"/>
 
                             <body name="right_ankle_pitch_link" pos="0 0 -0.22">
                                 <joint name="right_ankle_pitch_joint" pos="0 0 0" axis="0 1 0" range="-1.4 1.4" />
@@ -240,6 +244,8 @@
   <contact>
     <exclude body1="left_hip_pitch_link" body2="torso_link"/>
     <exclude body1="right_hip_pitch_link" body2="torso_link"/>
+    <exclude body1="left_hip_pitch_link" body2="left_knee_link"/>
+    <exclude body1="right_hip_pitch_link" body2="right_knee_link"/>
   </contact>
 
 </mujoco>
