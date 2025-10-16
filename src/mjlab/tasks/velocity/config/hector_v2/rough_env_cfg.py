@@ -54,7 +54,7 @@ class Hectorv2RoughEnvCfg(LocomotionVelocityEnvCfg):
       r".*hip_roll.*": 0.15,
       r".*hip_yaw.*": 0.15,
       r".*knee.*": 0.35,
-      r".*ankle_pitch.*": 0.05,
+      r".*ankle_pitch.*": 1e-10,
       # Arms.
       r".*shoulder_pitch.*": 0.35,
       r".*shoulder_roll.*": 0.15,
