@@ -246,7 +246,7 @@ class CurriculumCfg:
 ##
 
 SIM_CFG = SimulationCfg(
-  nconmax=70_000,
+  nconmax=100_000,
   njmax=300,
   mujoco=MujocoCfg(
     timestep=0.005,
