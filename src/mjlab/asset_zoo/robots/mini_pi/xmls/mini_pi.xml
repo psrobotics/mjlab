@@ -41,7 +41,7 @@
     </asset>
 
   <worldbody>
-    <body name="torsolink" pos="0.0 0.0 0.347">
+    <body name="torso_link" pos="0.0 0.0 0.347">
       <inertial pos="0.00242324 -5.699e-05 0.0403008" quat="0.695312 0.00968645 0.00943283 0.718581" mass="2.1609" diaginertia="0.00978249 0.00901239 0.00416199"/>
       <freejoint name="floating_base_joint" />
       <site name="imu_in_torso" size="0.01" pos="0.0 0.0 0.0" rgba="0.2 0.2 0.2 1"/>
