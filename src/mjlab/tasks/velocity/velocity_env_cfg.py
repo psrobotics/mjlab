@@ -87,11 +87,11 @@ class CommandsCfg:
 class ObservationCfg:
   @dataclass
   class PolicyCfg(ObsGroup):
-    base_lin_vel: ObsTerm = term(
-      ObsTerm,
-      func=mdp.base_lin_vel,
-      noise=Unoise(n_min=-0.1, n_max=0.1),
-    )
+    # base_lin_vel: ObsTerm = term(
+    #   ObsTerm,
+    #   func=mdp.base_lin_vel,
+    #   noise=Unoise(n_min=-0.1, n_max=0.1),
+    # )
     base_ang_vel: ObsTerm = term(
       ObsTerm,
       func=mdp.base_ang_vel,
@@ -123,9 +123,30 @@ class ObservationCfg:
 
   @dataclass
   class PrivilegedCfg(PolicyCfg):
-    def __post_init__(self):
-      super().__post_init__()
-      self.enable_corruption = False
+    base_lin_vel: ObsTerm = term(
+      ObsTerm,
+      func=mdp.base_lin_vel,
+    )
+    base_ang_vel: ObsTerm = term(
+      ObsTerm,
+      func=mdp.base_ang_vel,
+    )
+    projected_gravity: ObsTerm = term(
+      ObsTerm,
+      func=mdp.projected_gravity,
+    )
+    joint_pos: ObsTerm = term(
+      ObsTerm,
+      func=mdp.joint_pos_rel,
+    )
+    joint_vel: ObsTerm = term(
+      ObsTerm,
+      func=mdp.joint_vel_rel,
+    )
+    actions: ObsTerm = term(ObsTerm, func=mdp.last_action)
+    command: ObsTerm = term(
+      ObsTerm, func=mdp.generated_commands, params={"command_name": "twist"}
+    )
 
   policy: PolicyCfg = field(default_factory=PolicyCfg)
   critic: PrivilegedCfg = field(default_factory=PrivilegedCfg)
